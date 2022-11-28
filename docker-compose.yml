@@ -5,6 +5,19 @@ networks:
     driver: bridge
 
 services:
+  api:
+    container_name: api
+    image: "mcr.microsoft.com/dotnet/sdk:6.0"
+    depends_on:
+      - db
+    volumes:
+      - ./Coolshop_api/API_ShopingClose/:/app
+    command: dotnet watch --project ./app run --urls "http://0.0.0.0:80"
+    networks:
+      - coolshop
+    ports:
+      - 5191:80
+
   db:
     restart: always
     image: mysql:5.7
@@ -16,6 +29,7 @@ services:
     ports:
       - 3306:3306
     volumes:
+      - ./db.sql:/db.sql
       - ./DB_DATA:/var/lib/mysql
     networks:
       - coolshop

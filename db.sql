@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Nov 22, 2022 at 08:53 AM
+-- Generation Time: Nov 28, 2022 at 02:25 PM
 -- Server version: 5.7.39
 -- PHP Version: 8.0.19
 
@@ -30,23 +30,23 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Proc_product_GetPaging` (IN `v_Offs
   -- --> Kiểm tra giá trị v_Where nếu = '' thì set v_Where = '1=1'
   -- SELECT * FROM employee WHERE 1=1;
   IF IFNULL(v_Where, '') = '' THEN
-    SET v_Where = '1=1';
-  END IF;
+	    SET v_Where = '1=1';
+	  END IF;
 
-  -- Kiểm tra nếu tham số đầu vào v_Sort bị NULL --> gán giá trị cho v_Sort = ''
+	  -- Kiểm tra nếu tham số đầu vào v_Sort bị NULL --> gán giá trị cho v_Sort = ''
   -- --> Kiểm tra giá trị v_Sort nếu = '' thì set v_Sort = 'ModifiedDate DESC'
   -- SELECT * FROM employee WHERE 1=1 ORDER BY ModifiedDate DESC;
   IF IFNULL(v_Sort, '') = '' THEN
-    SET v_Sort = 'Rate DESC';
-  END IF;
+	    SET v_Sort = 'Rate DESC';
+	  END IF;
 
-  IF v_Limit = -1 THEN
-    SET @filterQuery = CONCAT('SELECT * FROM product WHERE ', v_Where, ' ORDER BY ', v_Sort);
-  ELSE
-    SET @filterQuery = CONCAT('SELECT * FROM product WHERE ', v_Where, ' ORDER BY ', v_Sort, ' LIMIT ', v_Offset, ',', v_Limit);
-  END IF;
+	  IF v_Limit = -1 THEN
+		    SET @filterQuery = CONCAT('SELECT * FROM product WHERE ', v_Where, ' ORDER BY ', v_Sort);
+		  ELSE
+			    SET @filterQuery = CONCAT('SELECT * FROM product WHERE ', v_Where, ' ORDER BY ', v_Sort, ' LIMIT ', v_Offset, ',', v_Limit);
+			  END IF;
 
-  -- filterQuery và @filterQuery có ý nghĩa khác nhau
+			  -- filterQuery và @filterQuery có ý nghĩa khác nhau
   -- filterQuery là 1 statement
   -- @filterQuery là 1 biến có kiểu dữ liệu là string
   PREPARE/*Cấp vùng nhớ và chuyển câu lệnh về dạng có thể excute*/ filterQuery FROM @filterQuery;
@@ -69,9 +69,9 @@ DELIMITER ;
 --
 
 CREATE TABLE `brand` (
-  `BrandID` int(11) NOT NULL COMMENT 'ID nhãn hiệu',
-  `BrandName` varchar(50) NOT NULL COMMENT 'Tên Nhãn hiệu',
-  `Description` varchar(255) DEFAULT NULL COMMENT 'Mô tả '
+	  `BrandID` int(11) NOT NULL COMMENT 'ID nhãn hiệu',
+	  `BrandName` varchar(50) NOT NULL COMMENT 'Tên Nhãn hiệu',
+	  `Description` varchar(255) DEFAULT NULL COMMENT 'Mô tả '
 ) ENGINE=InnoDB AVG_ROW_LENGTH=8192 DEFAULT CHARSET=utf8mb4 COMMENT='Nhãn hiệu';
 
 --
@@ -97,15 +97,15 @@ INSERT INTO `brand` (`BrandID`, `BrandName`, `Description`) VALUES
 --
 
 CREATE TABLE `cart` (
-  `id` int(11) NOT NULL,
-  `UserID` char(36) NOT NULL COMMENT 'ID người dùng',
-  `ProductID` char(36) NOT NULL COMMENT 'ID sản phẩm',
-  `SizeID` varchar(20) NOT NULL COMMENT 'Id size',
-  `ColorID` varchar(20) NOT NULL COMMENT 'Id màu sắc',
-  `ProductName` varchar(100) NOT NULL COMMENT 'Tên sản phẩm',
-  `ProductImage` varchar(500) DEFAULT NULL COMMENT 'Đường dẫn ảnh',
-  `Price` decimal(19,2) DEFAULT NULL,
-  `Quantity` int(11) DEFAULT NULL COMMENT 'Số lượng sản phẩm'
+	  `id` int(11) NOT NULL,
+	  `UserID` char(36) NOT NULL COMMENT 'ID người dùng',
+	  `ProductID` char(36) NOT NULL COMMENT 'ID sản phẩm',
+	  `SizeID` varchar(20) NOT NULL COMMENT 'Id size',
+	  `ColorID` varchar(20) NOT NULL COMMENT 'Id màu sắc',
+	  `ProductName` varchar(100) NOT NULL COMMENT 'Tên sản phẩm',
+	  `ProductImage` varchar(500) DEFAULT NULL COMMENT 'Đường dẫn ảnh',
+	  `Price` decimal(19,2) DEFAULT NULL,
+	  `Quantity` int(11) DEFAULT NULL COMMENT 'Số lượng sản phẩm'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Giỏ hàng';
 
 -- --------------------------------------------------------
@@ -115,12 +115,12 @@ CREATE TABLE `cart` (
 --
 
 CREATE TABLE `category` (
-  `CategoryID` int(11) NOT NULL COMMENT 'Danh mục ID',
-  `CategoryName` varchar(50) NOT NULL COMMENT 'Tên danh mục',
-  `Description` varchar(255) DEFAULT NULL COMMENT 'Mô tả',
-  `Slug` varchar(50) DEFAULT NULL COMMENT 'SEO',
-  `IsShow` tinyint(1) DEFAULT '1',
-  `parentId` int(11) DEFAULT NULL
+	  `CategoryID` int(11) NOT NULL COMMENT 'Danh mục ID',
+	  `CategoryName` varchar(50) NOT NULL COMMENT 'Tên danh mục',
+	  `Description` varchar(255) DEFAULT NULL COMMENT 'Mô tả',
+	  `Slug` varchar(50) DEFAULT NULL COMMENT 'SEO',
+	  `IsShow` tinyint(1) DEFAULT '1',
+	  `parentId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB AVG_ROW_LENGTH=8192 DEFAULT CHARSET=utf8mb4 COMMENT='Bảng danh mục sản phẩm';
 
 --
@@ -146,9 +146,9 @@ INSERT INTO `category` (`CategoryID`, `CategoryName`, `Description`, `Slug`, `Is
 --
 
 CREATE TABLE `color` (
-  `ColorID` varchar(20) NOT NULL COMMENT 'Màu sắc ID',
-  `ColorName` varchar(50) NOT NULL COMMENT 'Tên màu sắc',
-  `Description` varchar(255) DEFAULT NULL COMMENT 'Mô tả'
+	  `ColorID` varchar(20) NOT NULL COMMENT 'Màu sắc ID',
+	  `ColorName` varchar(50) NOT NULL COMMENT 'Tên màu sắc',
+	  `Description` varchar(255) DEFAULT NULL COMMENT 'Mô tả'
 ) ENGINE=InnoDB AVG_ROW_LENGTH=8192 DEFAULT CHARSET=utf8mb4 COMMENT='Bảng Màu sắc';
 
 --
@@ -169,9 +169,9 @@ INSERT INTO `color` (`ColorID`, `ColorName`, `Description`) VALUES
 --
 
 CREATE TABLE `gallery` (
-  `GalleryID` int(11) NOT NULL COMMENT 'ID ảnh trưng bày',
-  `ProductID` char(36) DEFAULT NULL COMMENT 'ID sản phẩm',
-  `Thumbnail` varchar(255) DEFAULT NULL COMMENT 'Hình ảnh nhỏ'
+	  `GalleryID` int(11) NOT NULL COMMENT 'ID ảnh trưng bày',
+	  `ProductID` char(36) DEFAULT NULL COMMENT 'ID sản phẩm',
+	  `Thumbnail` varchar(255) DEFAULT NULL COMMENT 'Hình ảnh nhỏ'
 ) ENGINE=InnoDB AVG_ROW_LENGTH=8192 DEFAULT CHARSET=utf8mb4 COMMENT='Ảnh trưng bày nhỏ';
 
 --
@@ -183,37 +183,7 @@ INSERT INTO `gallery` (`GalleryID`, `ProductID`, `Thumbnail`) VALUES
 (4, '674934cc-42cf-20cf-1d4a-aea48a10ed18', 'image.png'),
 (5, '60e57f80-33cf-435a-a5fe-4e6affaad7a6', '20221013-083202ao-training-F50-den-phoi-hong-2015-2016-VN-600x800.jpg'),
 (6, '60e57f80-33cf-435a-a5fe-4e6affaad7a6', '20221013-083202ao-training-F50-den-phoi-hong-2015-2016-VN-600x800.jpg'),
-(16, '64a59a25-2488-54b0-f6b4-c8af08a50cbf', '20221101-132511ao-polo-nam-lyle-and-scott-at60-1520256880-54.jpg'),
-(17, '64a59a25-2488-54b0-f6b4-c8af08a50cbf', '20221101-132511f5ffd3d1b2d9a0db1cffaaac2a7d8b9e.jpg'),
-(18, '64a59a25-2488-54b0-f6b4-c8af08a50cbf', '20221101-13251132179fbdbac9c410e1a949acd46ab64d.jpeg'),
-(19, '64a59a25-2488-54b0-f6b4-c8af08a50cbf', '20221101-132511pho__ng_adidas__1.jpg'),
-(20, '64a59a25-2488-54b0-f6b4-c8af08a50cbf', '20221101-152823Adidas-Manchester-United.jpg'),
-(21, '64a59a25-2488-54b0-f6b4-c8af08a50cbf', '20221101-15282332179fbdbac9c410e1a949acd46ab64d.jpeg');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `orderdetail`
---
-
-CREATE TABLE `orderdetail` (
-  `OrderdetailID` char(36) NOT NULL COMMENT 'ID chi tiết order',
-  `ProductID` char(36) DEFAULT NULL COMMENT 'ID product',
-  `ProductName` varchar(100) NOT NULL,
-  `ProductImage` varchar(500) NOT NULL,
-  `SizeID` varchar(20) DEFAULT NULL COMMENT 'Id size',
-  `ColorID` varchar(20) DEFAULT NULL COMMENT 'Color id',
-  `Qunatity` int(11) DEFAULT NULL COMMENT 'Số lượng',
-  `Price` decimal(19,2) DEFAULT NULL COMMENT 'Giá',
-  `Promotion` varchar(50) DEFAULT NULL COMMENT 'Giảm giá',
-  `OrderID` char(36) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Chi tiết hóa đơn';
-
---
--- Dumping data for table `orderdetail`
---
-
-INSERT INTO `orderdetail` (`OrderdetailID`, `ProductID`, `ProductName`, `ProductImage`, `SizeID`, `ColorID`, `Qunatity`, `Price`, `Promotion`, `OrderID`) VALUES
+(16, '64a59a25-2488-54b0-f6b4-c8af08a50c`Price`, `Promotion`, `OrderID`) VALUES
 ('0ad76b0b-e4cd-4e27-abf1-240d371484e6', '77440a14-11da-4729-a4eb-43ce6c1a5c83', 'Áo dầy cộm', '20221013-074658ao-polo-nam-lyle-and-scott-at60-1520256880-54.jpg', 'XS', 'Vang001', 1, '300000.00', NULL, 'a8d79bb7-1f14-4778-8df0-c836c3af8461'),
 ('0f9ee1f9-aa0a-432b-b3a9-f2dbed23d19c', 'c22edc73-1e37-4208-8637-46844daad0fa', 'áo đi bơi', '20221019-222409z1028862000850_88526d597c8a4af07970acc8cdbe680e (1).jpg', 'M', 'Tim001', 1, '1000.00', NULL, '3c83cb55-00d8-4ee8-b742-192965555563'),
 ('35db2a4b-a3dd-4cce-920c-b3ff9a843094', '4148606d-f5b6-4b89-9290-442c4b606db9', 'Áo in hình doraemon', '20221013-082223z1028862000850_88526d597c8a4af07970acc8cdbe680e (1).jpg', 'L', 'Xanh002', 1, '100000.00', NULL, '56805966-fddf-4bf9-8065-9a3b33ac591f'),
@@ -232,15 +202,15 @@ INSERT INTO `orderdetail` (`OrderdetailID`, `ProductID`, `ProductName`, `Product
 --
 
 CREATE TABLE `orders` (
-  `OrderID` char(36) NOT NULL COMMENT 'Id hóa đơn',
-  `UserID` char(36) NOT NULL COMMENT 'Id người dùng',
-  `OrderstatusID` varchar(50) NOT NULL COMMENT 'Id trạng thái',
-  `PhoneShip` varchar(12) DEFAULT NULL COMMENT 'Số điện thoại',
-  `AddresShip` varchar(100) DEFAULT NULL COMMENT 'Địa chỉ',
-  `NameShip` varchar(255) DEFAULT NULL COMMENT 'Tên người ship',
-  `Note` varchar(255) DEFAULT NULL COMMENT 'Ghi chú thông tin cần thiết',
-  `CreateDate` datetime DEFAULT NULL COMMENT 'Ngày tạo',
-  `UpdateDate` datetime DEFAULT NULL COMMENT 'Ngày cập nhật'
+	  `OrderID` char(36) NOT NULL COMMENT 'Id hóa đơn',
+	  `UserID` char(36) NOT NULL COMMENT 'Id người dùng',
+	  `OrderstatusID` varchar(50) NOT NULL COMMENT 'Id trạng thái',
+	  `PhoneShip` varchar(12) DEFAULT NULL COMMENT 'Số điện thoại',
+	  `AddresShip` varchar(100) DEFAULT NULL COMMENT 'Địa chỉ',
+	  `NameShip` varchar(255) DEFAULT NULL COMMENT 'Tên người ship',
+	  `Note` varchar(255) DEFAULT NULL COMMENT 'Ghi chú thông tin cần thiết',
+	  `CreateDate` datetime DEFAULT NULL COMMENT 'Ngày tạo',
+	  `UpdateDate` datetime DEFAULT NULL COMMENT 'Ngày cập nhật'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Hóa đơn';
 
 --
@@ -263,9 +233,9 @@ INSERT INTO `orders` (`OrderID`, `UserID`, `OrderstatusID`, `PhoneShip`, `Addres
 --
 
 CREATE TABLE `orderstatus` (
-  `OrderstatusID` varchar(50) NOT NULL COMMENT 'Key trạng thái',
-  `Name` varchar(50) DEFAULT NULL COMMENT 'Tên trạng thái',
-  `Description` varchar(255) DEFAULT NULL COMMENT 'Mô tả'
+	  `OrderstatusID` varchar(50) NOT NULL COMMENT 'Key trạng thái',
+	  `Name` varchar(50) DEFAULT NULL COMMENT 'Tên trạng thái',
+	  `Description` varchar(255) DEFAULT NULL COMMENT 'Mô tả'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Trạng thái hóa đơn';
 
 --
@@ -288,19 +258,19 @@ INSERT INTO `orderstatus` (`OrderstatusID`, `Name`, `Description`) VALUES
 --
 
 CREATE TABLE `product` (
-  `ProductID` char(36) NOT NULL COMMENT 'ID sản phẩm',
-  `BrandID` int(11) NOT NULL COMMENT 'ID nhãn hiệu',
-  `ProductName` varchar(100) NOT NULL COMMENT 'Tên sản phẩm',
-  `Price` decimal(19,2) NOT NULL COMMENT 'Giá sản phẩm',
-  `Image` varchar(500) NOT NULL COMMENT 'Hình ảnh sản phẩm',
-  `Rate` double NOT NULL COMMENT 'Đánh giá sản phẩm',
-  `Slug` varchar(50) DEFAULT NULL COMMENT 'SEO',
-  `Description` varchar(255) DEFAULT NULL,
-  `CreatedDate` date DEFAULT NULL COMMENT 'Ngày tạo',
-  ` CreatedBy` varchar(50) DEFAULT NULL COMMENT 'Người tạo',
-  ` ModifiedDate` date DEFAULT NULL COMMENT 'Ngày chỉnh sửa',
-  `ModifiedBy` varchar(50) DEFAULT NULL COMMENT 'Người chỉnh sửa gần nhất',
-  `DeletedDate` date DEFAULT NULL COMMENT 'Ngày xóa gần nhất'
+	  `ProductID` char(36) NOT NULL COMMENT 'ID sản phẩm',
+	  `BrandID` int(11) NOT NULL COMMENT 'ID nhãn hiệu',
+	  `ProductName` varchar(100) NOT NULL COMMENT 'Tên sản phẩm',
+	  `Price` decimal(19,2) NOT NULL COMMENT 'Giá sản phẩm',
+	  `Image` varchar(500) NOT NULL COMMENT 'Hình ảnh sản phẩm',
+	  `Rate` double NOT NULL COMMENT 'Đánh giá sản phẩm',
+	  `Slug` varchar(50) DEFAULT NULL COMMENT 'SEO',
+	  `Description` varchar(255) DEFAULT NULL,
+	  `CreatedDate` date DEFAULT NULL COMMENT 'Ngày tạo',
+	  ` CreatedBy` varchar(50) DEFAULT NULL COMMENT 'Người tạo',
+	  ` ModifiedDate` date DEFAULT NULL COMMENT 'Ngày chỉnh sửa',
+	  `ModifiedBy` varchar(50) DEFAULT NULL COMMENT 'Người chỉnh sửa gần nhất',
+	  `DeletedDate` date DEFAULT NULL COMMENT 'Ngày xóa gần nhất'
 ) ENGINE=InnoDB AVG_ROW_LENGTH=8192 DEFAULT CHARSET=utf8mb4 COMMENT='Sản phẩm';
 
 --
@@ -325,11 +295,11 @@ INSERT INTO `product` (`ProductID`, `BrandID`, `ProductName`, `Price`, `Image`, 
 --
 
 CREATE TABLE `productdetails` (
-  `ProductDetailsID` char(36) NOT NULL COMMENT 'ID thông tin chi tiết sản phẩm',
-  `ProductID` char(36) DEFAULT NULL COMMENT 'ID sản phẩm',
-  `ColorID` varchar(20) DEFAULT NULL COMMENT 'ID màu sắc',
-  `SizeID` varchar(20) DEFAULT NULL COMMENT 'ID size',
-  `Quantity` int(11) DEFAULT NULL COMMENT 'Số lượng sản phẩm'
+	  `ProductDetailsID` char(36) NOT NULL COMMENT 'ID thông tin chi tiết sản phẩm',
+	  `ProductID` char(36) DEFAULT NULL COMMENT 'ID sản phẩm',
+	  `ColorID` varchar(20) DEFAULT NULL COMMENT 'ID màu sắc',
+	  `SizeID` varchar(20) DEFAULT NULL COMMENT 'ID size',
+	  `Quantity` int(11) DEFAULT NULL COMMENT 'Số lượng sản phẩm'
 ) ENGINE=InnoDB AVG_ROW_LENGTH=8192 DEFAULT CHARSET=utf8mb4 COMMENT='Thông tin chi tiết sản phẩm';
 
 --
@@ -387,8 +357,8 @@ INSERT INTO `productdetails` (`ProductDetailsID`, `ProductID`, `ColorID`, `SizeI
 --
 
 CREATE TABLE `productincategory` (
-  `ProductID` char(36) DEFAULT NULL COMMENT 'ID sản phẩm',
-  `CategoryID` int(11) DEFAULT NULL COMMENT 'ID danh mục'
+	  `ProductID` char(36) DEFAULT NULL COMMENT 'ID sản phẩm',
+	  `CategoryID` int(11) DEFAULT NULL COMMENT 'ID danh mục'
 ) ENGINE=InnoDB AVG_ROW_LENGTH=8192 DEFAULT CHARSET=utf8mb4 COMMENT='Bảng sản phẩm trong danh mục';
 
 --
@@ -428,8 +398,8 @@ INSERT INTO `productincategory` (`ProductID`, `CategoryID`) VALUES
 --
 
 CREATE TABLE `role` (
-  `RoleID` varchar(20) NOT NULL,
-  `RoleName` varchar(50) NOT NULL COMMENT 'Tên quyền'
+	  `RoleID` varchar(20) NOT NULL,
+	  `RoleName` varchar(50) NOT NULL COMMENT 'Tên quyền'
 ) ENGINE=InnoDB AVG_ROW_LENGTH=8192 DEFAULT CHARSET=utf8mb4 COMMENT='Bảng quyền ';
 
 --
@@ -447,9 +417,9 @@ INSERT INTO `role` (`RoleID`, `RoleName`) VALUES
 --
 
 CREATE TABLE `size` (
-  `SizeID` varchar(20) NOT NULL COMMENT 'ID size',
-  `SizeName` varchar(50) NOT NULL COMMENT 'Tên size',
-  `Description` varchar(255) DEFAULT NULL COMMENT 'Mô tả'
+	  `SizeID` varchar(20) NOT NULL COMMENT 'ID size',
+	  `SizeName` varchar(50) NOT NULL COMMENT 'Tên size',
+	  `Description` varchar(255) DEFAULT NULL COMMENT 'Mô tả'
 ) ENGINE=InnoDB AVG_ROW_LENGTH=8192 DEFAULT CHARSET=utf8mb4 COMMENT='Size quần áo';
 
 --
@@ -472,19 +442,19 @@ INSERT INTO `size` (`SizeID`, `SizeName`, `Description`) VALUES
 --
 
 CREATE TABLE `user` (
-  `UserID` char(36) NOT NULL COMMENT 'Id admin và nhân viên',
-  `Username` varchar(50) NOT NULL COMMENT 'Tên đăng nhập',
-  `Password` varchar(50) NOT NULL COMMENT 'Mật khẩu',
-  `PhoneNumber` varchar(50) DEFAULT NULL COMMENT 'Số điện thoại',
-  `Address` varchar(50) DEFAULT NULL COMMENT 'Địa chỉ',
-  `Fullname` varchar(50) DEFAULT NULL COMMENT 'Tên đày đủ',
-  `LastOperatingTime` date NOT NULL COMMENT 'Thời gian đăng nhập lần cuối',
-  `CreatedDate` date DEFAULT NULL COMMENT 'Ngày tạo',
-  `CreatedBy` varchar(50) DEFAULT NULL COMMENT 'Người tạo',
-  `ModifiedDate` date DEFAULT NULL COMMENT 'Ngày chỉnh sửa gần nhất',
-  `ModifiedBy` varchar(50) DEFAULT NULL COMMENT 'Người chỉnh sửa',
-  `DeletedDate` date DEFAULT NULL,
-  `RoleID` varchar(20) DEFAULT NULL COMMENT 'Id quyền truy cập'
+	  `UserID` char(36) NOT NULL COMMENT 'Id admin và nhân viên',
+	  `Username` varchar(50) NOT NULL COMMENT 'Tên đăng nhập',
+	  `Password` varchar(50) NOT NULL COMMENT 'Mật khẩu',
+	  `PhoneNumber` varchar(50) DEFAULT NULL COMMENT 'Số điện thoại',
+	  `Address` varchar(50) DEFAULT NULL COMMENT 'Địa chỉ',
+	  `Fullname` varchar(50) DEFAULT NULL COMMENT 'Tên đày đủ',
+	  `LastOperatingTime` date NOT NULL COMMENT 'Thời gian đăng nhập lần cuối',
+	  `CreatedDate` date DEFAULT NULL COMMENT 'Ngày tạo',
+	  `CreatedBy` varchar(50) DEFAULT NULL COMMENT 'Người tạo',
+	  `ModifiedDate` date DEFAULT NULL COMMENT 'Ngày chỉnh sửa gần nhất',
+	  `ModifiedBy` varchar(50) DEFAULT NULL COMMENT 'Người chỉnh sửa',
+	  `DeletedDate` date DEFAULT NULL,
+	  `RoleID` varchar(20) DEFAULT NULL COMMENT 'Id quyền truy cập'
 ) ENGINE=InnoDB AVG_ROW_LENGTH=4096 DEFAULT CHARSET=utf8mb4 COMMENT='Bảng thông tin admin và nhân viên';
 
 --
@@ -665,3 +635,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
