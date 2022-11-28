@@ -169,9 +169,9 @@ INSERT INTO `color` (`ColorID`, `ColorName`, `Description`) VALUES
 --
 
 CREATE TABLE `gallery` (
-	  `GalleryID` int(11) NOT NULL COMMENT 'ID ảnh trưng bày',
-	  `ProductID` char(36) DEFAULT NULL COMMENT 'ID sản phẩm',
-	  `Thumbnail` varchar(255) DEFAULT NULL COMMENT 'Hình ảnh nhỏ'
+  `GalleryID` int(11) NOT NULL COMMENT 'ID ảnh trưng bày',
+  `ProductID` char(36) DEFAULT NULL COMMENT 'ID sản phẩm',
+  `Thumbnail` varchar(255) DEFAULT NULL COMMENT 'Hình ảnh nhỏ'
 ) ENGINE=InnoDB AVG_ROW_LENGTH=8192 DEFAULT CHARSET=utf8mb4 COMMENT='Ảnh trưng bày nhỏ';
 
 --
@@ -183,7 +183,37 @@ INSERT INTO `gallery` (`GalleryID`, `ProductID`, `Thumbnail`) VALUES
 (4, '674934cc-42cf-20cf-1d4a-aea48a10ed18', 'image.png'),
 (5, '60e57f80-33cf-435a-a5fe-4e6affaad7a6', '20221013-083202ao-training-F50-den-phoi-hong-2015-2016-VN-600x800.jpg'),
 (6, '60e57f80-33cf-435a-a5fe-4e6affaad7a6', '20221013-083202ao-training-F50-den-phoi-hong-2015-2016-VN-600x800.jpg'),
-(16, '64a59a25-2488-54b0-f6b4-c8af08a50c`Price`, `Promotion`, `OrderID`) VALUES
+(16, '64a59a25-2488-54b0-f6b4-c8af08a50cbf', '20221101-132511ao-polo-nam-lyle-and-scott-at60-1520256880-54.jpg'),
+(17, '64a59a25-2488-54b0-f6b4-c8af08a50cbf', '20221101-132511f5ffd3d1b2d9a0db1cffaaac2a7d8b9e.jpg'),
+(18, '64a59a25-2488-54b0-f6b4-c8af08a50cbf', '20221101-13251132179fbdbac9c410e1a949acd46ab64d.jpeg'),
+(19, '64a59a25-2488-54b0-f6b4-c8af08a50cbf', '20221101-132511pho__ng_adidas__1.jpg'),
+(20, '64a59a25-2488-54b0-f6b4-c8af08a50cbf', '20221101-152823Adidas-Manchester-United.jpg'),
+(21, '64a59a25-2488-54b0-f6b4-c8af08a50cbf', '20221101-15282332179fbdbac9c410e1a949acd46ab64d.jpeg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orderdetail`
+--
+
+CREATE TABLE `orderdetail` (
+  `OrderdetailID` char(36) NOT NULL COMMENT 'ID chi tiết order',
+  `ProductID` char(36) DEFAULT NULL COMMENT 'ID product',
+  `ProductName` varchar(100) NOT NULL,
+  `ProductImage` varchar(500) NOT NULL,
+  `SizeID` varchar(20) DEFAULT NULL COMMENT 'Id size',
+  `ColorID` varchar(20) DEFAULT NULL COMMENT 'Color id',
+  `Qunatity` int(11) DEFAULT NULL COMMENT 'Số lượng',
+  `Price` decimal(19,2) DEFAULT NULL COMMENT 'Giá',
+  `Promotion` varchar(50) DEFAULT NULL COMMENT 'Giảm giá',
+  `OrderID` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Chi tiết hóa đơn';
+
+--
+-- Dumping data for table `orderdetail`
+--
+
+INSERT INTO `orderdetail` (`OrderdetailID`, `ProductID`, `ProductName`, `ProductImage`, `SizeID`, `ColorID`, `Qunatity`, `Price`, `Promotion`, `OrderID`) VALUES
 ('0ad76b0b-e4cd-4e27-abf1-240d371484e6', '77440a14-11da-4729-a4eb-43ce6c1a5c83', 'Áo dầy cộm', '20221013-074658ao-polo-nam-lyle-and-scott-at60-1520256880-54.jpg', 'XS', 'Vang001', 1, '300000.00', NULL, 'a8d79bb7-1f14-4778-8df0-c836c3af8461'),
 ('0f9ee1f9-aa0a-432b-b3a9-f2dbed23d19c', 'c22edc73-1e37-4208-8637-46844daad0fa', 'áo đi bơi', '20221019-222409z1028862000850_88526d597c8a4af07970acc8cdbe680e (1).jpg', 'M', 'Tim001', 1, '1000.00', NULL, '3c83cb55-00d8-4ee8-b742-192965555563'),
 ('35db2a4b-a3dd-4cce-920c-b3ff9a843094', '4148606d-f5b6-4b89-9290-442c4b606db9', 'Áo in hình doraemon', '20221013-082223z1028862000850_88526d597c8a4af07970acc8cdbe680e (1).jpg', 'L', 'Xanh002', 1, '100000.00', NULL, '56805966-fddf-4bf9-8065-9a3b33ac591f'),
